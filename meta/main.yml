@@ -1,0 +1,14 @@
+---
+galaxy_info:
+  author: flandiGT
+  description: Installation role for nextcloud docker container
+  min_ansible_version: 2.1
+  platforms:
+  - name: Ubuntu
+    versions:
+    - xenial
+  categories:
+  - development
+  - packaging
+  - system
+dependencies: []

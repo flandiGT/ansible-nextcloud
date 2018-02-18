@@ -1,0 +1,15 @@
+---
+- name: create directory for data_volume
+  file:
+    path: "{{data_volume}}"
+    state: directory
+    owner: root
+    group: root
+    mode: 0755
+  when: not(
+            (data_volume is undefined)
+            or
+            (data_volume is none)
+            or
+            (data_volume | trim == '')
+          )

@@ -1,0 +1,20 @@
+---
+- hosts: test_machine
+  become: yes
+
+  pre_tasks:
+  - apt:
+      name: python-docker
+      update_cache: yes
+
+  post_tasks:
+  - apt:
+      name: python-docker
+      state: absent
+      purge: yes
+
+  roles:
+    - role: '.'
+      http_port: 10081
+      interface: "172.17.0.1"
+      data_volume: /srv/docker/nextcloud

@@ -1,0 +1,23 @@
+[Install]
+WantedBy = multi-user.target
+
+[Unit]
+Description = nextcloud service
+After       = docker.service
+Requires    = docker.service
+
+[Service]
+ExecStartPre = -/usr/bin/docker rm -f %n
+ExecStart = /usr/bin/docker run --name %n \
+{% if data_volume != "" %}
+            --volume {{data_volume}}:/var/www/html \
+{% endif %}
+{% if http_port != "" %}
+            --publish {{interface}}:{{http_port}}:80 \
+{% endif %}
+            {{image_name}}:{{image_version}}
+ExecStop  = -/usr/bin/docker stop %n
+ExecStopPost  = -/usr/bin/docker rm -f %n
+Restart = always
+RestartSec = 60s
+TimeoutSec=60
